@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+  Feedback
+{% endblock %}
+
+{% block headblock %}
+  <link rel="stylesheet" href="{% static 'css/feedback.css' %}">
+{% endblock %}
+
+{% block body_block %}
+  <div class="mycontainer text-center">
+    <div class="jumbotron">
+      <p>Please measure your weight now and enter it in the box below.</p>
+      <form class="form-group" action="{% url 'feedback' %}" method="post">
+        {% csrf_token %}
+        {{ ff.as_p }}
+        <input type="submit" class="btn btn-success" name="submit" value="Send">
+      </form>
+    </div>
+  </div>
+{% endblock %}

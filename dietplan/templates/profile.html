@@ -1,0 +1,637 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block headblock %}
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block body_block %}
+    <div class="profilebody m-auto p-5" >
+        <h3>My Profile</h3>
+        <hr>
+        <!--Basic Information card-->
+        <div class="row">
+            <div class="col-4 p-2">
+                <div class="thecard card bg-light mb-3" style="margin: auto;">
+                    <h5 class="card-header">Basic Info</h5>
+                    <div class="card-body p-auto pt-2 pb-2">
+                        <table>
+                            <tr >
+                                <td class="cardtexta card-text p-1"><b>Username</b></td>
+                                <td> <b>|</b> </td>
+                                <td class="cardtextb card-text p-1"> {{ user.username }}</td>
+                            </tr>
+                             <tr>
+                                <td class="cardtexta card-text p-1"><b>E-mail id</b></td>
+                                 <td> <b>|</b> </td>
+                                <td class="cardtextb card-text p-1"> {{ user.email }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="thecard card bg-light mb-3" style="margin: auto;">
+                    <h5 class="card-header">BMR and Calorie Intake</h5>
+                    <div class="card-body p-auto pt-2 pb-2">
+                        <table>
+                            <tr >
+                                <td class="cardtexta card-text p-1"><b>BMR</b></td>
+                                <td> <b>|</b> </td>
+                                <td class="cardtextb card-text p-1">{{ uif.BMR }}</td>
+                            </tr>
+                             <tr>
+                                <td class="cardtexta card-text p-1"><b>Calorie Intake</b></td>
+                                 <td> <b>|</b> </td>
+                                <td class="cardtextb card-text p-1"> {{ uif.calorieintake }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="thecard card bg-light mb-3">
+                    <h5 class="card-header">Other data</h5>
+                    <!-- <span style="float:right; font-size:5%"><a href="#" >Edit</a></span> -->
+                    <div class="card-body pl-3 pt-2 pb-2">
+                        <table>
+                            <tr>
+                                <td class="cardtexta card-text p-1"><b>Date of Birth</b></td>
+                                <td> <b>|</b> </td>
+                                <td class="cardtextb card-text p-1"> {{ uif.date_of_birth }}</td>
+                            </tr>
+                            <tr>
+                               <td class="cardtexta card-text p-1"><b>Weight(in kg)</b></td>
+                                <td> <b>|</b> </td>
+                               <td class="cardtextb card-text p-1"> {{ uif.weight }}</td>
+                            </tr>
+                            <tr>
+                                <td class="cardtexta card-text p-1"><b>Height(in cms)</b></td>
+                                <td> <b>|</b> </td>
+                                <td class="cardtextb card-text p-1"> {{ uif.height }}</td>
+                            </tr>
+                            <tr>
+                                <td class="cardtexta card-text p-1"><b>Gender</b></td>
+                                <td> <b>|</b> </td>
+                                <td class="cardtextb card-text p-1"> {{ uif.gender }}</td>
+                            </tr>
+                            <tr>
+                                <td class="cardtexta card-text p-1"><b>Goal</b></td>
+                                <td> <b>|</b> </td>
+                                <td class="cardtextb card-text p-1"> {{ uif.goal }}</td>
+                            </tr>
+                            <tr>
+                                <td class="cardtexta card-text p-1"><b>Profession</b></td>
+                                <td> <b>|</b> </td>
+                                <td class="cardtextb card-text p-1"> {{ uif.profession }}</td>
+                            </tr>
+                            <tr>
+                                <td class="cardtexta card-text p-1"><b>Lifestyle</b></td>
+                                <td> <b>|</b> </td>
+                                <td class="cardtextb card-text p-1"> {{ uif.lifestyle }}</td>
+                            </tr>
+                            <tr>
+                                <td class="cardtexta card-text p-1"><b>Medical History</b></td>
+                                <td> <b>|</b> </td>
+                                <td class="cardtextb card-text p-1"> {{ uif.medical_history }}</td>
+                            </tr>
+                            <tr>
+                                <td class="cardtexta card-text p-1"><b>Food Preference</b></td>
+                                <td> <b>|</b> </td>
+                                <td class="cardtextb card-text p-1"> {{ uif.food_preference }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8 p-2">
+                <div class="thecard card bg-light mb-3">
+                    <div  class="card-header">
+                      Diet Plan
+                      <!-- Modal trigger -->
+                      {% if not disable %}
+                      <button type="button" class="btn btn-primary showFeedButton" data-toggle="modal" data-target="#feedbackModal" style="float:right;">
+                        Give Feedback
+                      </button>
+                      {% else %}
+                      <button type="button" class="btn btn-primary disableFeedButton" style="float:right;" disabled>
+                        Give Feedback
+                      </button>
+                      {% endif %}
+
+                      <!-- Feedback Modal -->
+                      <!-- Modal -->
+                      <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="feedbackModalLongTitle">Feedback</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <p>Continue?</p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                              <a href="{% url 'feedback' %}"<button type="submit" class="btn btn-primary">Yes</button></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body text-center">
+                        {# <a href="#" class="btn btn-primary">Generate Diet plan</a> #}
+                        {% if uif %}
+                        <table class="mealtable m-auto">
+                          <tr class="tophead">
+                            <td colspan="2" style="border:none;"></td>
+
+                            <th>Name</th>
+                            <th>Weight (grams/No.)</th>
+                            <th>Calories (Kcal)</th>
+                            <th>Proteins (grams)</th>
+                            <th>Carbs (grams)</th>
+                            <th>Fats (grams)</th>
+                          </tr>
+                          {% if plan.BreakfastorSnacks %}
+                          <tr>
+                            <th class="mealtype" rowspan="6">Breakfast or snacks</th>
+                            <th class="plan">Plan 1</th>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan1.item1 }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan1.item1Quantity }}g</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan1.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan1.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan1.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan1.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan1.item2 }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan1.item2Quantity }}g</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan1.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan1.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan1.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan1.item2Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th class="plan">Plan 2</th>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan2.item1 }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan2.item1Quantity }}g</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan2.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan2.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan2.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan2.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan2.item2 }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan2.item2Quantity }}g</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan2.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan2.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan2.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan2.item2Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th class="plan">Plan 3</th>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan3.item1 }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan3.item1Quantity }}g</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan3.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan3.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan3.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan3.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan3.item2 }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan3.item2Quantity }}g</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan3.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan3.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan3.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.BreakfastorSnacks.plan3.item2Fats }}</td>
+                          </tr>
+                          {% endif %}
+                          <tr class="emptyrow">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          {% if plan.Snacks %}
+                          <tr>
+                            <th class="mealtype" rowspan="6">Snacks</th>
+                            <th class="plan">Plan 1</th>
+                            <td class="plancontent">{{ plan.Snacks.plan1.item1 }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan1.item1Quantity }}g</td>
+                            <td class="plancontent">{{ plan.Snacks.plan1.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan1.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan1.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan1.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.Snacks.plan1.item2 }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan1.item2Quantity }}g</td>
+                            <td class="plancontent">{{ plan.Snacks.plan1.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan1.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan1.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan1.item2Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th class="plan">Plan 2</th>
+                            <td class="plancontent">{{ plan.Snacks.plan2.item1 }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan2.item1Quantity }}g</td>
+                            <td class="plancontent">{{ plan.Snacks.plan2.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan2.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan2.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan2.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.Snacks.plan2.item2 }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan2.item2Quantity }}g</td>
+                            <td class="plancontent">{{ plan.Snacks.plan2.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan2.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan2.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan2.item2Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th class="plan">Plan 3</th>
+                            <td class="plancontent">{{ plan.Snacks.plan3.item1 }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan3.item1Quantity }}g</td>
+                            <td class="plancontent">{{ plan.Snacks.plan3.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan3.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan3.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan3.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.Snacks.plan3.item2 }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan3.item2Quantity }}g</td>
+                            <td class="plancontent">{{ plan.Snacks.plan3.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan3.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan3.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.Snacks.plan3.item2Fats }}</td>
+                          </tr>
+                          {% endif %}
+                          <tr class="emptyrow">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          {% if plan.Breakfast %}
+                          <tr>
+                            <th class="mealtype" rowspan="6">Breakfast</th>
+                            <th class="plan">Plan 1</th>
+                            <td class="plancontent">{{ plan.Breakfast.plan1.item1 }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan1.item1Quantity }}g</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan1.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan1.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan1.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan1.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.Breakfast.plan1.item2 }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan1.item2Quantity }}g</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan1.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan1.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan1.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan1.item2Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th class="plan">Plan 2</th>
+                            <td class="plancontent">{{ plan.Breakfast.plan2.item1 }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan2.item1Quantity }}g</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan2.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan2.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan2.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan2.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.Breakfast.plan2.item2 }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan2.item2Quantity }}g</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan2.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan2.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan2.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan2.item2Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th class="plan">Plan 3</th>
+                            <td class="plancontent">{{ plan.Breakfast.plan3.item1 }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan3.item1Quantity }}g</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan3.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan3.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan3.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan3.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.Breakfast.plan3.item2 }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan3.item2Quantity }}g</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan3.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan3.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan3.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.Breakfast.plan3.item2Fats }}</td>
+                          </tr>
+                          {% endif %}
+                          <tr class="emptyrow">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          {% if plan.Lunch %}
+                          <tr>
+                            <th class="mealtype" rowspan="6">Lunch</th>
+                            <th class="plan">Plan 1</th>
+                            <td class="plancontent">{{ plan.Lunch.plan1.item1 }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan1.item1Quantity }}{% if not plan.Lunch.plan1.item1 == 'Roti' %}g{% endif %}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan1.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan1.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan1.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan1.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.Lunch.plan1.item2 }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan1.item2Quantity }}{% if not plan.Lunch.plan1.item2 == 'Roti' %}g{% endif %}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan1.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan1.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan1.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan1.item2Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th class="plan">Plan 2</th>
+                            <td class="plancontent">{{ plan.Lunch.plan2.item1 }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan2.item1Quantity }}{% if not plan.Lunch.plan2.item1 == 'Roti' %}g{% endif %}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan2.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan2.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan2.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan2.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.Lunch.plan2.item2 }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan2.item2Quantity }}{% if not plan.Lunch.plan2.item2 == 'Roti' %}g{% endif %}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan2.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan2.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan2.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan2.item2Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th class="plan">Plan 3</th>
+                            <td class="plancontent">{{ plan.Lunch.plan3.item1 }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan3.item1Quantity }}{% if not plan.Lunch.plan3.item1 == 'Roti' %}g{% endif %}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan3.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan3.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan3.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan3.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.Lunch.plan3.item2 }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan3.item2Quantity }}{% if not plan.Lunch.plan3.item2 == 'Roti' %}g{% endif %}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan3.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan3.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan3.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.Lunch.plan3.item2Fats }}</td>
+                          </tr>
+                          {% endif %}
+                          <tr class="emptyrow">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          {% if plan.preworkout %}
+                          <tr>
+                            <th class="mealtype" rowspan="3">Pre-Workout</th>
+                            <th class="plan">Plan 1</th>
+                            <td class="plancontent">{{ plan.preworkout.plan1.item1 }}</td>
+                            <td class="plancontent">{{ plan.preworkout.plan1.item1Quantity }}</td>
+                            <td class="plancontent">{{ plan.preworkout.plan1.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.preworkout.plan1.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.preworkout.plan1.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.preworkout.plan1.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th class="plan">Plan 2</th>
+                            <td class="plancontent">{{ plan.preworkout.plan2.item1 }}</td>
+                            <td class="plancontent">{{ plan.preworkout.plan2.item1Quantity }}</td>
+                            <td class="plancontent">{{ plan.preworkout.plan2.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.preworkout.plan2.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.preworkout.plan2.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.preworkout.plan2.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th class="plan">Plan 3</th>
+                            <td class="plancontent">{{ plan.preworkout.plan3.item1 }}</td>
+                            <td class="plancontent">{{ plan.preworkout.plan3.item1Quantity }}</td>
+                            <td class="plancontent">{{ plan.preworkout.plan3.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.preworkout.plan3.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.preworkout.plan3.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.preworkout.plan3.item1Fats }}</td>
+                          </tr>
+                          {% endif %}
+                          <tr class="emptyrow">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          {% if plan.postworkout %}
+                          <tr>
+                            <th class="mealtype" rowspan="6">Post-Workout</th>
+                            <th class="plan">Plan 1</th>
+                            <td class="plancontent">{{ plan.postworkout.plan1.item1 }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan1.item1Quantity }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan1.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan1.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan1.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan1.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.postworkout.plan1.item2 }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan1.item2Quantity }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan1.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan1.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan1.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan1.item2Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th class="plan">Plan 2</th>
+                            <td class="plancontent">{{ plan.postworkout.plan2.item1 }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan2.item1Quantity }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan2.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan2.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan2.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan2.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.postworkout.plan2.item2 }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan2.item2Quantity }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan2.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan2.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan2.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan2.item2Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th class="plan">Plan 3</th>
+                            <td class="plancontent">{{ plan.postworkout.plan3.item1 }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan3.item1Quantity }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan3.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan3.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan3.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan3.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.postworkout.plan3.item2 }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan3.item2Quantity }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan3.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan3.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan3.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.postworkout.plan3.item2Fats }}</td>
+                          </tr>
+                          {% endif %}
+                          <tr class="emptyrow">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          {% if plan.Dinner %}
+                          <tr>
+                            <th class="mealtype" rowspan="9">Dinner</th>
+                            <th class="plan">Plan 1</th>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item1 }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item1Quantity }}{% if not plan.Lunch.plan1.item1 == 'Roti' %}g{% endif %}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item2 }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item2Quantity }}{% if not plan.Lunch.plan1.item2 == 'Roti' %}g{% endif %}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item2Fats }}</td>
+                          </tr>
+                          {% if plan.Dinner.plan1.item3 %}
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item3 }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item3Quantity }}{% if not plan.Lunch.plan1.item3 == 'Roti' %}g{% endif %}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item3Cals }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item3Proteins }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item3Carbs }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan1.item3Fats }}</td>
+                          </tr>
+                          {% endif %}
+                          <tr>
+                            <th class="plan">Plan 2</th>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item1 }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item1Quantity }}{% if not plan.Lunch.plan2.item1 == 'Roti' %}g{% endif %}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item2 }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item2Quantity }}{% if not plan.Lunch.plan2.item2 == 'Roti' %}g{% endif %}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item2Fats }}</td>
+                          </tr>
+                          {% if plan.Dinner.plan2.item3 %}
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item3 }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item3Quantity }}{% if not plan.Lunch.plan2.item3 == 'Roti' %}g{% endif %}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item3Cals }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item3Proteins }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item3Carbs }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan2.item3Fats }}</td>
+                          </tr>
+                          {% endif %}
+                          <tr>
+                            <th class="plan">Plan 3</th>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item1 }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item1Quantity }}{% if not plan.Lunch.plan3.item1 == 'Roti' %}g{% endif %}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item1Cals }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item1Proteins }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item1Carbs }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item1Fats }}</td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item2 }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item2Quantity }}{% if not plan.Lunch.plan3.item2 == 'Roti' %}g{% endif %}{% if not plan.Lunch.plan1.item2 == 'Roti' %}g{% endif %}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item2Cals }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item2Proteins }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item2Carbs }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item2Fats }}</td>
+                          </tr>
+                          {% if plan.Dinner.plan3.item3 %}
+                          <tr>
+                            <th></th>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item3 }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item3Quantity }}{% if not plan.Lunch.plan3.item3 == 'Roti' %}g{% endif %}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item3Cal }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item3Proteins }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item3Carbs }}</td>
+                            <td class="plancontent">{{ plan.Dinner.plan3.item3Fats }}</td>
+                          </tr>
+                          {% endif %}
+                          {% endif %}
+                        </table>
+                        {% else %}
+                          <p class="text-center"> Please fill out this form First </p>
+                          <a href="{% url 'uif' pk=user.pk %}"><button class="btn btn-primary center" type="button" name="button">Form</button></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!--Diet form data card-->
+            <div class="col-3 p-2">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

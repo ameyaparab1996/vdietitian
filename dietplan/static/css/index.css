@@ -1,0 +1,68 @@
+html, body{
+  height: 100%;
+  background: linear-gradient(to bottom, #fdfefe , #f7f9f9 ,  #f4f6f7 , #ecf0f1  );
+}
+.intro{
+  width: 100%;
+  overflow-y: auto;
+  height: 100%;
+  margin-top: 0px;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-attachment:scroll;
+  background-size: cover;
+  filter: blur(1px);
+}
+.howtext{
+  position: relative;
+  bottom: 60px;
+  font-size: 300%;
+  margin: auto;
+}
+.introtext{
+  position: relative;
+  bottom: 600px;
+  font-size: 600%;
+  text-shadow: 20px 20px 80px black;
+  color: #273746;
+}
+.how{
+  padding: 10px;
+
+}
+.card-deck{
+  width: 53%;
+  margin: auto;
+}
+.card{
+  -webkit-box-shadow: 1px 6px 22px -11px rgba(0,0,0,0.55);
+  -moz-box-shadow: 1px 6px 22px -11px rgba(0,0,0,0.55);
+  box-shadow: 1px 6px 22px -11px rgba(0,0,0,0.55);
+}
+.card:hover{
+  -webkit-box-shadow: 1px 6px 52px -11px rgba(0,0,0,0.55);
+  -moz-box-shadow: 1px 6px 52px -11px rgba(0,0,0,0.55);
+  box-shadow: 1px 6px 52px -11px rgba(0,0,0,0.55);
+}
+/* Set width to make card deck cards 100% width */
+@media (max-width: 950px) {
+
+	.card-deck-wrapper {margin-right:0;margin-left:0;}
+	.card-deck {
+	    display: block;
+	    width: 100%;
+	    margin-bottom: .75rem;
+	    table-layout: fixed;
+	    border-spacing: 1.25rem 0;
+	}
+	.card-deck .card {
+	    display: block;
+	    margin-bottom: .75rem;
+	    vertical-align: top;
+	}
+
+  .card-deck .card:not(:first-child) {
+    margin-left: 0px;
+}
+
+}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block headblock %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+{% endblock %}
+
+{% block title %}
+Home
+{% endblock %}
+
+
+{% block body_block %}
+
+
+  <div class="intro" style="background-image: url('static/images/bgfruit.jpg')">
+
+  </div>
+  <h1 id="introtext" class="introtext text-center"></h1>
+  {# <button type="button" name="button" class="btn btn-primary" onclick="typeWriter()">Click me</button> #}
+  <script type="text/javascript">
+    window.onload = function() {
+      typeWriter();
+    };
+    var i = 0;
+    var txt = 'Virtual Dietitian'; /* The text */
+    var speed = 200; /* The speed/duration of the effect in milliseconds */
+
+    function typeWriter() {
+      if (i < txt.length) {
+        document.getElementById("introtext").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+  </script>
+
+  <div  class="container-fluid">
+    <div id="howto" class="container-fluid how">
+      <h3 class="text-center" style="font-size:300%;">How to get Diet plan?</h3>
+      <h5 class="text-center" style="font-size:150%;">Follow these 3 steps.</h5>
+      <hr>
+      <div class="card-deck-wrapper">
+        <div class="card-deck">
+          <div class="card">
+            <img class="card-img-top" src="{% static "images/signup.png" %}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title"><b>Step 1. Sign Up</b></h5>
+              <p class="card-text">Sign up by clicking on the signup button present on the right side of the header.</p>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img-top" src="{% static "images/fillform.png" %}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title"><b>Step 2. Fill the form</b></h5>
+              <p class="card-text">After signing up, you will see a dropdown button on the right side of the header. Click on it and then click 'Fill out the form' button. Fill the form and click proceed.</p>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img-top" src="{% static "images/myprofile.png" %}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title"><b>Step 3. My Profile</b></h5>
+              <p class="card-text">Now, at the same place where you previously clicked 'Fill out form', now click on 'My profile' section. Here, you will see your Dietplan and other provided information.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

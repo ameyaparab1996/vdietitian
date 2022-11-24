@@ -1,0 +1,52 @@
+.thecard{
+  -webkit-box-shadow: 1px 6px 32px -11px rgba(0,0,0,0.55);
+  -moz-box-shadow: 1px 6px 32px -11px rgba(0,0,0,0.55);
+  box-shadow: 1px 6px 32px -11px rgba(0,0,0,0.55);
+}
+.card{
+  max-width: 100%;
+  overflow: auto;
+}
+.card-text{
+  word-wrap: break-word;
+}
+.cardtexta{
+  text-align: right;
+}
+.cardtextb{
+  text-align: left;
+}
+.profilebody{
+  width: 65%;
+}
+table, td,th{
+  /* border: 1px solid black;
+  border-collapse: collapse; */
+  text-align: center;
+  font-family: 'Comfortaa', cursive;
+}
+th, td{
+  padding: 6px;
+  margin: auto;
+}
+.emptyrow{
+  height:19px;
+}
+.emptyrow td{
+  border: none;
+}
+.tophead th{
+  background-color: #aed6f1 ;
+}
+.mealtype{
+  background-color:   #1abc9c  ;
+}
+.plan, .plancontent{
+  background-color:  #ecf0f1  ;
+}
+.disableFeedButton:hover{
+  cursor: no-drop;
+}
+.showFeedButton:hover{
+  cursor: pointer;
+}

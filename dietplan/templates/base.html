@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- bootsrap links -->
+	   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+     <!--custom css-->
+     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+     <!--custom font-->
+     <link href="https://fonts.googleapis.com/css?family=Palanquin:600" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+
+     <nav class="navbar sticky-top navbar-expand navbar-dark" style="background-color:#626567  ">
+       <div class="container ">
+  		     <a class="navbar-brand itimFont" href="{% url 'index' %}">Virtual Dietitian</a>
+  		     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  			        <span class="navbar-toggler-icon"></span>
+  		     </button>
+
+           <div class="collapse navbar-collapse" id="navbarSupportedContent">
+             <ul class="navbar-nav mr-auto">
+               <!-- <li class="nav-item active">
+                 <a class="nav-link itimFont1" href="">About Us</a>
+               </li> -->
+               <li class="nav-item active">
+                 <a class="nav-link itimFont1" href="{% url 'index' %}#howto">How to?</a>
+               </li>
+               <!-- <li class="nav-item">
+               <a class="nav-link" href="#">My Diet plan</a>
+               </li> -->
+             </ul>
+             {% if not user.is_authenticated %}
+             <form class="form-inline my-2 my-lg-1">
+               {% if request.path != "/user/register/" %}
+               <a href="{% url 'register' %}"><button type="button" class="btn btn-outline-light mr-sm-2 my-2 my-sm-0 itimFont1" >Sign Up</button></a>
+               {% endif %}
+               {% if request.path != "/user/login/" %}
+               <a href="{% url 'signin' %}"><button type="button" class="btn btn-light mr-sm-2 my-2 my-sm-0 itimFont1">Login</button></a>
+               {% endif %}
+             </form>
+           </div>
+         </div>
+         {% else %}
+
+         <!-- <p class="btn btn-outline-light" style="color:white; padding:0px; height:4px;">{{user.username}}{% if user.is_superuser %} (Admin){% endif %}</p> -->
+         <div class="btn-group dropdown show">
+           <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+             <p class="btn btn-light" style="color:white; padding:0px; height:4px;">{{user.username}}{% if user.is_superuser %} (Admin){% endif %}</p>
+             <img src="{% static 'images/glyphicons-4-user.png' %}" alt="{{ user.username }}"/>
+           </a>
+
+           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+             <!-- <a href="" class="dropdown-item"></a> -->
+             {% if user.is_superuser %}
+             <a href="/admin/" class="dropdown-item">Admin</a>
+             {% endif %}
+             <a href="{% url 'uif' pk=user.pk %}" class="dropdown-item">Fill out the form</a>
+             <a href="{% url 'profile' pk=user.pk %}" class="dropdown-item">My profile</a>
+             <div class="dropdown-divider"></div>
+             <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+           </div>
+         </div>
+
+         {% endif %}
+       </nav>
+     </div>
+   </div>
+   {% block headblock %}
+   {% endblock %}
+ </head>
+
+ <body background-color=#fbfcfc>
+   {% block body_block %}
+   {% endblock %}
+ </body>
+
+ <!--Footer-->
+
+ <div class="page-footer font-small pt-2">
+   <!--Footer Links-->
+   <div class="container-fluid text-center text-md-left">
+     <div class="row pb-3">
+       <!--First column-->
+       <div class="col-md-8 m-auto">
+         <div class="row m-auto text-center">
+           <div class="col-4 text-right">
+             <table class="m-auto">
+               <tr>
+                 <td class="text-right" style="text"><u><b>Mentor</b></u></td>
+                 <td><b>|</b></td>
+                 <td class="text-left">Mrs. Charusheela Nehete</td>
+               </tr>
+             </table>
+           </div>
+           <div class="col-4">
+             <table class="m-auto">
+               <tr>
+                 <th><u>Members</u></th>
+                 <th>|</th>
+                 <td class="text-left">Ameya Parab</td>
+               </tr>
+               <tr>
+                 <td></td>
+                 <td></td>
+                 <td class="text-left">Akshaykumar Lilani</td>
+               </tr>
+               <tr>
+                 <td></td>
+                 <td></td>
+                 <td class="text-left">Jayesh Motwani</td>
+               </tr>
+             </table>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <!--/.Footer Links-->
+   <div class="college-name py-1 m-auto text-center">
+     <h6 class="text-center beproject">BE Project</h6>
+     <h5 class="text-center itimFont1">Vivekananda Education society's Institute of Technology</h5>
+   </div>
+   <!--Copyright-->
+   <div class="footer-copyright py-3 text-center">
+     © 2018 Copyright:
+     <a href="#"> Virtual Dietitian </a>
+   </div>
+   <!--/.Copyright-->
+ </div>
+<!--/.Footer-->
+
+</html>

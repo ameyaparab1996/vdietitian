@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+  Feedback Submitted
+{% endblock %}
+
+{% block headblock %}
+  <link rel="stylesheet" href="{% static "css/feedback.css" %}">
+{% endblock %}
+
+{% block body_block %}
+  <div class="mycontainer text-center">
+    <div class="jumbotron">
+      <h3>Thank you!</h3>
+      <h5>Your feedback has been submiited.</h5>
+      <a href="{% url 'profile' pk=user.pk %}">Go back to the profile page</a>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+Important Details
+{% endblock %}
+
+{% block body_block %}
+<div class="container">
+  <div class="jumbotron">
+    <center>
+      {% if show %}
+          <h3>Please fill out the following details.</h3>
+          <!--<h5>We will ask you only for once.</h5>-->
+          <hr>
+          <br>
+
+          <form action="{% url 'uif' pk=user.pk %}" class="form-group" method="post">
+            <div class="form-group">
+              <table>
+                {% csrf_token %}
+                {{ uif.as_table }}
+                <tr>
+                  <td></td>
+                  <td style="height:5px"></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><input class="btn btn-default" type="submit" value="Proceed >>"></td>
+                </tr>
+              </table>
+            </div>
+          </form>
+      {% else %}
+        <h3> You have filled this form. </h3>
+        <h5> Thank you! 😉</h5>
+      {% endif %}
+
+  </center>
+  </div>
+</div>
+
+{% endblock %}
